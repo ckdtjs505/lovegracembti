@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <article class="question" >
+        <div class="progress mt-5">
+            <div class="progress-bar" role="progressbar" style="width: calc(100/12*1%)"></div>
+        </div>
+        <!-- <img class="mt-5 slash-element" src="img/slash-element.png" alt="slash-element"> -->
+        &nbsp;<h2 id="titlenum" class="question-num text-center">1/12</h2>
+        <h2 id="title" class="question-content text-center mt-3 mb-3">내가 좋아하는 것은?</h2>
+    
+        <input id="type" type="hidden" value="EI">
+        
+        <div class="rectangle mt-3 mb-1"></div>
+        <button id="A" type="button" class="btn-answer pt-5 pb-5"> 즉흥적으로 생각해 낸 것</button>
+        <div class="mid-rectangle"></div>
+        <button id="B" type="button" class="btn-answer pt-5 pb-5"> 미리 계획한 것</button>
+        <div class="rectangle"></div>
+        <button id="B" type="button" class="btn-answer pt-5 pb-5"> 내 방법으로 하는 것</button>
+
+        <button id="B" type="button" class="btn-answer pt-5 pb-5"> 재촉 받지 않는 것</button>
+
+    </article>
+
+    <button id="before">이전</button>
+    <button id="next">다음</button>
+    
+</body>
+<script>
+    document.querySelector('#before').addEventListener('click', ()=> {
+        location.href = './index.html';
+    })
+
+    document.querySelector('#next').addEventListener('click', ()=> {
+        location.href = './2.html';
+    })
+
+</script>
+</html>
