@@ -62,7 +62,7 @@ article {
 }
 
 #titlenum {
-  margin-left: 1.5rem;
+  margin-left: 2rem;
 }
 
 #myProgress {
@@ -83,4 +83,9 @@ article {
   height: 200px;
   margin: auto;
   margin-bottom: 1rem;
+}
+
+#progress {
+  width: 90%;
+  margin: auto;
 }
