@@ -2,3 +2,85 @@ article {
   display: flex;
   flex-direction: column;
 }
+
+#container,
+#result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+#question {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+}
+#start {
+  margin: 1.5rem auto;
+  font-size: 16px;
+  width: 300px;
+  height: 50px;
+  background-color: #6d9560;
+  border-radius: 5px;
+  color: white;
+  border: none;
+}
+
+#img {
+  width: 300px;
+  margin: auto;
+}
+
+#main {
+}
+
+#sendForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#sendForm button {
+  margin: 1rem auto;
+  font-size: 16px;
+  width: 300px;
+  height: 50px;
+  background-color: #6d9560;
+  border-radius: 5px;
+  color: white;
+  border: none;
+}
+
+#title {
+  width: 85%;
+  margin: auto;
+  text-align: center;
+}
+
+#titlenum {
+  margin-left: 1.5rem;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: #04aa6d;
+}
+
+#resultImg {
+  background-color: red;
+  border-radius: 1rem;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  margin-bottom: 1rem;
+}

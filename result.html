@@ -8,23 +8,50 @@
     <title>Document</title>
 </head>
 <body>
-    <article class="question" >
-        <div class="progress mt-5">
-            <div class="progress-bar" role="progressbar" style="width: calc(100/12*1%)"></div>
-        </div>
-        <h1>결과 : RED</h1>
-        <div>link- 오픈 카톡방 </div>
-        
-    </article>
+    <div id="result" >
+        <div id="resultImg"></div>
+        <strong>결과는</strong>
+        <h2 id='text'> 빨간색</h2>
+    </div>
 </body>
 <script>
-    document.querySelector('#before').addEventListener('click', ()=> {
-        location.href = './index.html';
-    })
+const resultImg = document.getElementById('resultImg');
+const value = localStorage.getItem('result').split(',');
+const $text = document.getElementById('text')
+let realResult;
+let text;
 
-    document.querySelector('#next').addEventListener('click', ()=> {
-        location.href = './2.html';
-    })
+const setRealResult = () => {
+    if( value[0] === 'A'){
+        realResult = 'yellow',
+        text = "노란색"
+    }
+    if( value[0] === 'B'){
+        realResult = 'blue'
+        text = "파란색"
+
+    }
+    if( value[0] === 'C'){
+        realResult = 'red'
+        text = "빨간색"
+    }
+    if( value[0] === 'D'){
+        realResult = 'green'
+        text = "초록색"
+    }
+}
+
+setRealResult();
+
+if( value.length >= 2 ){
+    alert('다시한번 신중하게 부탁드려요')
+    location.href = './index.html'
+}else {
+    $text.innerHTML = text;
+    resultImg.style.backgroundColor = realResult;
+}
+
+
 
 </script>
 </html>

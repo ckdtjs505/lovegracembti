@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./static/style.css">
+        <title>색 검사 테스트</title>
+        <script src="./static/index.js"></script>
+    </head>
+<body>
+    <article id="question" >
+        <div id="myProgress">
+            <div id="myBar"></div>
+        </div>
+        <h2 id="titlenum" > _ / _ </h2>
+        <h2 id="title" >Q. </h2>
+    
+        <form id='sendForm'>
+            <input type="hidden" value="123"/>
+            <button type="submit" id="A" class=""> </button>
+            <button type="submit" id="B" class=""> </button>
+            <button type="submit" id="C" class=""> </button>
+            <button type="submit" id="D" class=""> </button>
+        </form>
+    </article>
+
+    
+</body>
+<script>
+let count = 0;
+const title = document.getElementById('title')
+const titlenum = document.getElementById('titlenum')
+const sendForm = document.getElementById('sendForm')
+const myBar = document.getElementById('myBar')
+
+let resultData = {A : 0, B : 0, C : 0, D :0} ;
+
+sendForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    resultData[`${e.submitter.id}`]++;
+    updateForm();
+})
+
+const updateForm = () => {
+
+    if( count + 1 > data.length  ){
+        resultValue();
+       
+        location.href = "./result.html";
+    }
+
+    title.innerHTML = `Q.${data[count][0]}`
+    titlenum.innerHTML = `${count + 1} / ${data.length}`
+    sendForm.querySelectorAll('button').forEach( (ele,ind) =>{
+        ele.innerHTML = data[count ][ind + 1];
+    })
+
+    myBar.style.width = `${( 100 / 17 ) * (count + 1) }%`;
+    
+    count = count + 1;
+    console.log(resultData)
+
+}
+
+const resultValue = () => {
+    let value = Object.values(resultData);
+    let max = Math.max(...value);
+    
+    const resultValue = [];
+    for(const key in resultData) {
+        if( resultData[key] === max ){
+            resultValue.push(key);
+        }
+    }
+    localStorage.setItem('result', resultValue);
+
+}
+
+
+updateForm();
+
+</script>
+</html>
