@@ -62,7 +62,8 @@ article {
 }
 
 #titlenum {
-  margin-left: 2rem;
+  width: 85%;
+  margin: 1rem auto;
 }
 
 #myProgress {
