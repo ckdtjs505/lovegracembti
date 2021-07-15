@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
         <link rel="stylesheet" href="./static/style.css">
         <title>색 검사 테스트</title>
         <script src="./static/index.js"></script>
@@ -20,7 +21,6 @@
         <h2 id="title" >Q. </h2>
     
         <form id='sendForm'>
-            <input type="hidden" value="123"/>
             <button type="submit" id="A" class=""> </button>
             <button type="submit" id="B" class=""> </button>
             <button type="submit" id="C" class=""> </button>
@@ -30,7 +30,7 @@
 
     
 </body>
-<script>
+<script type="text/babel">
 let count = 0;
 const title = document.getElementById('title')
 const titlenum = document.getElementById('titlenum')
@@ -39,11 +39,25 @@ const myBar = document.getElementById('myBar')
 
 let resultData = {A : 0, B : 0, C : 0, D :0} ;
 
-sendForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    resultData[`${e.submitter.id}`]++;
-    updateForm();
+document.getElementById('A').addEventListener('click', (e)=> {
+    onclickListener(e)
 })
+document.getElementById('B').addEventListener('click', (e)=> {
+    onclickListener(e)
+})
+document.getElementById('C').addEventListener('click', (e)=> {
+    onclickListener(e)
+})
+document.getElementById('D').addEventListener('click', (e)=> {
+    onclickListener(e)
+})
+
+const onclickListener = (e ) => {
+    e.preventDefault();
+    resultData[`${e.currentTarget.id}`]++;
+    updateForm();
+}
+
 
 const updateForm = () => {
 
@@ -53,9 +67,9 @@ const updateForm = () => {
         location.href = "./result.html";
     }
 
-    title.innerHTML = `Q.${data[count][0]}`
-    titlenum.innerHTML = `${count + 1} / ${data.length}`
-    sendForm.querySelectorAll('button').forEach( (ele,ind) =>{
+    title.innerHTML = `Q.${data[count][0]}`;
+    titlenum.innerHTML = `${count + 1} / ${data.length}`;
+    Array.prototype.forEach.call( sendForm.querySelectorAll('button'), (ele, ind) => {
         ele.innerHTML = data[count ][ind + 1];
     })
 
@@ -67,8 +81,8 @@ const updateForm = () => {
 }
 
 const resultValue = () => {
-    let value = Object.values(resultData);
-    let max = Math.max(...value);
+    let dataValue = Object.keys(resultData).map(function(i) { return resultData[i]; });
+    let max = Math.max.apply(null, dataValue);
     
     const resultValue = [];
     for(const key in resultData) {
