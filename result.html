@@ -18,6 +18,7 @@
         <strong>결과는</strong>
         <div>1 순위 : <strong id='text'> </strong> </div>
         <div>2 순위 :  <strong id='textSnd'> </strong> </div>
+        <div>3 순위 :  <strong id='textThd'> </strong> </div>
     </div>
 </body>
 <script type="text/babel">
@@ -25,6 +26,7 @@ const resultImg = document.getElementById('resultImg');
 const value = JSON.parse(localStorage.getItem('results')).join(',').split(',');
 const $text = document.getElementById('text')
 const $textSnd = document.getElementById('textSnd')
+const $textThd = document.getElementById('textThd')
 let realResult;
 let text;
 
@@ -48,6 +50,7 @@ const setRealResult = () => {
 
     $text.innerHTML = value[0];
     $textSnd.innerHTML = value[1];
+    $textThd.innerHTML = value[2];
     resultImg.style.backgroundColor = realResult;
 }
 
