@@ -9,67 +9,52 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dokdo&display=swap" rel="stylesheet">
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.js"
-    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
+
     <title>Document</title>
 </head>
 <body>
     <div id="result" >
         <div id="resultImg"></div>
         <strong>결과는</strong>
-        <h2 id='text'> 빨간색</h2>
+        <div>1 순위 : <strong id='text'> </strong> </div>
+        <div>2 순위 :  <strong id='textSnd'> </strong> </div>
     </div>
 </body>
 <script type="text/babel">
 const resultImg = document.getElementById('resultImg');
-const value = localStorage.getItem('result').split(',');
+const value = JSON.parse(localStorage.getItem('results')).join(',').split(',');
 const $text = document.getElementById('text')
+const $textSnd = document.getElementById('textSnd')
 let realResult;
 let text;
 
 const setRealResult = () => {
-    if( value[0] === 'A'){
+    if( value[0] === 'yellow'){
         realResult = 'yellow',
         text = "노란색"
     }
-    if( value[0] === 'B'){
+    if( value[0] === 'blue'){
         realResult = 'blue'
         text = "파란색"
-
     }
-    if( value[0] === 'C'){
+    if( value[0] === 'red'){
         realResult = 'red'
         text = "빨간색"
     }
-    if( value[0] === 'D'){
+    if( value[0] === 'green'){
         realResult = 'green'
         text = "초록색"
     }
 
-    $.ajax({
-    type: "GET",
-    url: "https://script.google.com/macros/s/AKfycbxIKHUSjdKKIquWh0XiHS0U6HzefdMUnHntQObmMjh2QZ_vycgkvVWX_XW-Bq_e7zFN/exec",
-    data: { ...JSON.parse(localStorage.getItem('data')), ...JSON.parse(localStorage.getItem('user')) },
-    success: function (response) {
-    },
-    error: function (request, status, error) {
-      console.log("code:" + request.status + "\n" + "error:" + error);
-      console.log(request.responseText);
-    }
-  });
+    $text.innerHTML = value[0];
+    $textSnd.innerHTML = value[1];
+    resultImg.style.backgroundColor = realResult;
 }
 
 setRealResult();
 
-if( value.length >= 2 ){
-    alert('다시한번 신중하게 부탁드려요')
-    location.href = './index.html'
-}else {
-    $text.innerHTML = text;
-    resultImg.style.backgroundColor = realResult;
-}
+
+
 
 
 

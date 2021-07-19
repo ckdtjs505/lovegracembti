@@ -28,6 +28,14 @@
 document.querySelector("#start").addEventListener("click", () => {
     var name = document.getElementById('name').value;
     var age = document.getElementById('age').value ;
+    if( name == undefined || name == ''){
+        alert('이름을 입력해주세요')
+        return;
+    }
+    if( age == undefined || age == ''){
+        alert('나이를 입력해주세요')
+        return;
+    }
     localStorage.setItem('user', JSON.stringify({ 'name' : name, 'age' : age}) )
     location.href = "./test.html";
 });

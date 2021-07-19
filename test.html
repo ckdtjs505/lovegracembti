@@ -9,6 +9,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dokdo&display=swap" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
         <title>색 검사 테스트</title>
         <script src="./static/index.js"></script>
     </head>
@@ -67,7 +71,7 @@ const updateForm = () => {
     if( count + 1 > data.length  ){
         resultValue();
        
-        location.href = "./result.html";
+        
     }
 
     title.innerHTML = `Q.${data[count][0]}`;
@@ -93,8 +97,28 @@ const resultValue = () => {
             resultValue.push(key);
         }
     }
+
+    let keysSorted = Object.keys(resultData).sort(function(a,b){return resultData[b]-resultData[a]})
+
     localStorage.setItem('data', JSON.stringify(resultData).replace('A','yellow').replace('B','blue').replace('C','red').replace('D','green'));
     localStorage.setItem('result', resultValue);
+    localStorage.setItem('results', JSON.stringify(keysSorted).replace('A','yellow').replace('B','blue').replace('C','red').replace('D','green'));
+
+
+    document.getElementById('question').innerHTML="결과를 계산중입니다"
+
+    $.ajax({
+        type: "GET",
+        url: "https://script.google.com/macros/s/AKfycbxIKHUSjdKKIquWh0XiHS0U6HzefdMUnHntQObmMjh2QZ_vycgkvVWX_XW-Bq_e7zFN/exec",
+        data: { ...JSON.parse(localStorage.getItem('data')), ...JSON.parse(localStorage.getItem('user')) },
+        success: function (response) {
+            location.href = "./result.html";
+        },
+        error: function (request, status, error) {
+            console.log("code:" + request.status + "\n" + "error:" + error);
+            console.log(request.responseText);
+        }
+     });
 
 }
 
