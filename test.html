@@ -93,6 +93,7 @@ const resultValue = () => {
             resultValue.push(key);
         }
     }
+    localStorage.setItem('data', JSON.stringify(resultData).replace('A','yellow').replace('B','blue').replace('C','red').replace('D','green'));
     localStorage.setItem('result', resultValue);
 
 }

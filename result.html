@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dokdo&display=swap" rel="stylesheet">
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -43,6 +47,18 @@ const setRealResult = () => {
         realResult = 'green'
         text = "초록색"
     }
+
+    $.ajax({
+    type: "GET",
+    url: "https://script.google.com/macros/s/AKfycbxIKHUSjdKKIquWh0XiHS0U6HzefdMUnHntQObmMjh2QZ_vycgkvVWX_XW-Bq_e7zFN/exec",
+    data: { ...JSON.parse(localStorage.getItem('data')), ...JSON.parse(localStorage.getItem('user')) },
+    success: function (response) {
+    },
+    error: function (request, status, error) {
+      console.log("code:" + request.status + "\n" + "error:" + error);
+      console.log(request.responseText);
+    }
+  });
 }
 
 setRealResult();
