@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+        <link rel="stylesheet" href="./static/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dokdo&display=swap" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+        <title>색 검사 테스트</title>
+        <script src="./static/index.js"></script>
+    </head>
+<body>
+    <article id="question" >
+        <div id="progress"> 
+            <div id="myProgress">
+                <div id="myBar"></div>
+            </div>
+        </div>
+
+        <h2 id="titlenum" > _ / _ </h2>
+        <h2 id="title" >Q. </h2>
+        <form id='sendForm'>
+            <div>
+                <button type="submit" id="A" class=""> </button>
+                <p id="value"> 0 </p>
+            </div>
+            <div>
+                <button type="submit" id="B" class=""> </button>
+                <p id="value"> 0 </p>
+            </div>
+            <div>
+                <button type="submit" id="C" class=""> </button>
+                <p id="value"> 0 </p>
+            </div>
+            <div>
+                <button type="submit" id="D" class=""> </button>
+                <p id="value"> 0 </p>
+            </div>
+            <div id="submitBtn"> 제출 </div>  <div id="resetBtn"> 순위 초기화 </div>
+        </form>
+    </article>
+
+    
+</body>
+<script type="text/babel">
+let count = 0;
+const title = document.getElementById('title')
+const titlenum = document.getElementById('titlenum')
+const sendForm = document.getElementById('sendForm')
+const myBar = document.getElementById('myBar')
+
+let resultData = {A : 0, B : 0, C : 0, D :0} ;
+let cntValue = 5;
+document.getElementById('A').addEventListener('click', (e)=> {
+    onclickListener(e)
+   
+})
+document.getElementById('B').addEventListener('click', (e)=> {
+    onclickListener(e)
+})
+document.getElementById('C').addEventListener('click', (e)=> {
+    onclickListener(e)
+})
+document.getElementById('D').addEventListener('click', (e)=> {
+    onclickListener(e)
+})
+
+document.getElementById('resetBtn').addEventListener('click', (e)=> {
+    resetClick();
+   
+})
+
+const resetClick = () => {
+    document.querySelectorAll('#value').forEach( (ele)=> {
+        ele.innerHTML = 0;
+    })
+
+    document.querySelectorAll('#sendForm button').forEach( (ele)=> {
+        ele.disabled = false;
+    })
+
+    cntValue= 5;
+} 
+
+document.getElementById('submitBtn').addEventListener('click', (e)=> {
+
+    let check = false;
+    document.querySelectorAll('#value').forEach( (ele)=> {
+        console.log(ele.innerHTML )
+        if( ele.innerHTML === '0' ){
+            check = true;
+            return;
+        }
+    })
+
+    if(check){
+        alert('4개 모두 선택해주셔야 해요');
+        return;
+    }
+    // 갑 저장하기 
+    document.querySelectorAll('#value').forEach( (ele, idx)=> {
+        console.log(ele.innerHTML )
+
+        switch(idx){
+            case 0:
+                resultData['A'] = resultData['A'] + parseInt(ele.innerHTML);
+                break;
+            case 1:
+                resultData['B'] = resultData['B'] + parseInt(ele.innerHTML);
+                break;
+            case 2:
+                resultData['C'] = resultData['C'] + parseInt(ele.innerHTML);
+                break;
+            case 3:
+                resultData['D'] = resultData['D'] + parseInt(ele.innerHTML);
+                break;
+            default:
+                break;
+        }
+        if( ele.innerHTML === '0' ){
+        }
+    })
+
+    updateForm();
+    resetClick();
+
+})
+
+const onclickListener = (e ) => {
+    e.preventDefault();
+    if( cntValue === 1){
+        return;
+    }
+    console.log(e.target.nextSibling.nextSibling);
+    e.target.nextSibling.nextSibling.innerHTML = --cntValue;
+    e.target.disabled = true;
+    // resultData[`${e.currentTarget.id}`]++;
+    // updateForm();
+}
+
+
+const updateForm = () => {
+
+    if( count + 1 > data.length  ){
+        resultValue();
+    }
+
+    title.innerHTML = `Q.${data[count][0]}`;
+    titlenum.innerHTML = `${count + 1} / ${data.length}`;
+    Array.prototype.forEach.call( sendForm.querySelectorAll('button'), (ele, ind) => {
+        ele.innerHTML = data[count ][ind + 1];
+    })
+
+    myBar.style.width = `${( 100 / 17 ) * (count + 1) }%`;
+    
+    count = count + 1;
+    console.log(resultData)
+
+}
+
+const resultValue = () => {
+    let dataValue = Object.keys(resultData).map(function(i) { return resultData[i]; });
+    let max = Math.max.apply(null, dataValue);
+    
+    const resultValue = [];
+    for(const key in resultData) {
+        if( resultData[key] === max ){
+            resultValue.push(key);
+        }
+    }
+
+    let keysSorted = Object.keys(resultData).sort(function(a,b){return resultData[b]-resultData[a]})
+
+    localStorage.setItem('data', JSON.stringify(resultData).replace('A','yellow').replace('B','blue').replace('C','red').replace('D','green'));
+    localStorage.setItem('result', resultValue);
+    localStorage.setItem('results', JSON.stringify(keysSorted).replace('A','yellow').replace('B','blue').replace('C','red').replace('D','green'));
+
+
+    document.getElementById('question').innerHTML="결과를 계산중입니다"
+
+    $.ajax({
+        type: "GET",
+        url: "https://script.google.com/macros/s/AKfycbxIKHUSjdKKIquWh0XiHS0U6HzefdMUnHntQObmMjh2QZ_vycgkvVWX_XW-Bq_e7zFN/exec",
+        data: { ...JSON.parse(localStorage.getItem('data')), ...JSON.parse(localStorage.getItem('user')) },
+        success: function (response) {
+            location.href = "./result.html";
+        },
+        error: function (request, status, error) {
+            console.log("code:" + request.status + "\n" + "error:" + error);
+            console.log(request.responseText);
+        }
+     });
+
+}
+
+
+updateForm();
+
+</script>
+</html>

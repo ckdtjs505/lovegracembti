@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dokdo&display=swap" rel="stylesheet">
+    <title>색 검사 테스트</title>
+</head>
+<body>
+    <div id="main">
+        <div id = "container" >
+            <img  id="img" src="./assets/main.png"/>
+            <input id="name" placeholder="이름">
+            <input id="age" placeholder="나이" type="number">
+            <button id="start">테스트 시작하기</button>
+        </div>
+    </div>
+
+    
+</body>
+<script type="text/babel">
+
+document.querySelector("#start").addEventListener("click", () => {
+    var name = document.getElementById('name').value;
+    var age = document.getElementById('age').value ;
+    if( name == undefined || name == ''){
+        alert('이름을 입력해주세요')
+        return;
+    }
+    if( age == undefined || age == ''){
+        alert('나이를 입력해주세요')
+        return;
+    }
+    localStorage.setItem('user', JSON.stringify({ 'name' : name, 'age' : age}) )
+    location.href = "./detailTest.html";
+});
+</script>
+</html>
